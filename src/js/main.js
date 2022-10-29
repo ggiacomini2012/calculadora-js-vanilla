@@ -51,10 +51,11 @@ f.clickButton(clearEntry, () => {
 f.clickButton(dot, () => {
   const firstNumberIsMinus = firstNumber === minus;
   const secondNumberIsMinus = secondNumber === minus;
-  if(!memoryResult && firstNumberIsMinus || !firstNumber) firstNumber += zero + dot;
+  console.log(!memoryResult)
+  if(!memoryResult && (firstNumberIsMinus || !firstNumber)) firstNumber += zero + dot;
   if(!memoryResult && !firstNumberIsMinus && !firstNumber.includes(dot)) firstNumber += dot;
   if(!secondNumber) f.textContent(numberDisplay, firstNumber || memoryResult);
-  if(!secondNumber || secondNumberIsMinus && operation) secondNumber += zero + dot;
+  if((!secondNumber || secondNumberIsMinus) && operation) secondNumber += zero + dot;
   if(secondNumber && !secondNumberIsMinus && !secondNumber.includes(dot)) secondNumber += dot;
   if(secondNumber) f.textContent(numberDisplay, secondNumber);
 })
@@ -99,4 +100,4 @@ f.clickButton(equal, () => {
   operation = emptyString;
 })
 
-// document.addEventListener('click', () => f.consoleLogAll(firstNumber, secondNumber, operation, memoryResult)) //uncomment to debugg
+document.addEventListener('click', () => f.consoleLogAll(firstNumber, secondNumber, operation, memoryResult)) //uncomment to debugg
