@@ -49,15 +49,22 @@ f.clickButton(clearEntry, () => {
 })
 
 f.clickButton(dot, () => {
+  const operatorSign = f.selectById('operationDisplay').innerText;
   const firstNumberIsMinus = firstNumber === minus;
   const secondNumberIsMinus = secondNumber === minus;
-  console.log(!memoryResult)
   if(!memoryResult && (firstNumberIsMinus || !firstNumber)) firstNumber += zero + dot;
   if(!memoryResult && !firstNumberIsMinus && !firstNumber.includes(dot)) firstNumber += dot;
   if(!secondNumber) f.textContent(numberDisplay, firstNumber || memoryResult);
   if((!secondNumber || secondNumberIsMinus) && operation) secondNumber += zero + dot;
   if(secondNumber && !secondNumberIsMinus && !secondNumber.includes(dot)) secondNumber += dot;
   if(secondNumber) f.textContent(numberDisplay, secondNumber);
+  if(operatorSign === equal) {
+    firstNumber = zero + dot
+    operation = emptyString
+    memoryResult = emptyString
+    f.textContent(numberDisplay, firstNumber);
+    f.textContent(operationDisplay, emptyString);
+  };
 })
 
 operationTypes.map((currentOperation) => {
@@ -82,6 +89,7 @@ operationTypes.map((currentOperation) => {
 numberTypes.map((currentNumber) => {
   f.clickButton(currentNumber, () => {
     if (!operation) {
+      f.textContent(operationDisplay, emptyString);
       firstNumber += currentNumber;
       f.textContent(numberDisplay, firstNumber);
     } else {
